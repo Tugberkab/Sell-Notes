@@ -24,9 +24,9 @@ class _FirebaseInitState extends State<FirebaseInit> {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    return FutureBuilder<FirebaseApp>(
       future: _initialization,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<FirebaseApp> snapshot) {
         if (snapshot.hasError) {
           return NoFirebaseConnection(errorMessage: snapshot.error.toString());
         } else if (snapshot.connectionState == ConnectionState.done) {

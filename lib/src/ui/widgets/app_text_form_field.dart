@@ -169,7 +169,6 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
         break;
       default:
     }
-
     return TextFormField(
       key: _formKey,
       validator: validator,
