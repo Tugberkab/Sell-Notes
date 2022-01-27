@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:sell_notes/src/constants/colors.dart';
-import 'package:sell_notes/src/constants/note_text_style.dart';
+import '../../constants/colors.dart';
+import '../../constants/note_text_style.dart';
 
 enum AppButtonType { login, signUp }
 
@@ -41,8 +41,8 @@ class _AppButtonState extends State<AppButton> {
             noteFontSize: NoteFontSize.h4,
             noteFontWeight: NoteFontWeight.bold,
             color: (widget.type == AppButtonType.login)
-                ? Colors.black87
-                : Colors.black,
+                ? Colors.black54
+                : Colors.black87,
           ),
         ),
       ),

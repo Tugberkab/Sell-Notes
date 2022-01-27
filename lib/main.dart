@@ -3,8 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sell_notes/src/ui/pages/auth/login.dart';
-import 'package:sell_notes/src/ui/pages/auth/sign_up.dart';
+import 'src/router/app_router.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,11 +46,12 @@ class WaitingFirebase extends StatelessWidget {
       home: Scaffold(
         body: Center(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CircularProgressIndicator(),
               Text(
                 'Trying to connect with Firebase...',
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.headline5,
               ),
             ],
           ),
@@ -82,20 +82,18 @@ class NoFirebaseConnection extends StatelessWidget {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  AppRouter appRouter = AppRouter();
+  MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: SignUpPage(),
-      routes: {
-        '/login': (context) => LoginPage(),
-        '/signup': (context) => SignUpPage(),
-      },
+      onGenerateRoute: appRouter.onGenerateRoute,
     );
   }
 }

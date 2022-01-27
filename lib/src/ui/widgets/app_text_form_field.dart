@@ -1,12 +1,18 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
-import 'package:sell_notes/src/constants/note_text_style.dart';
+import 'package:sell_notes/src/utility/project_decoration.dart';
+import '../../constants/note_text_style.dart';
 
 enum AppTextFormFieldType { name, surname, mail, password, passAgain }
 
 class AppTextFormField extends StatefulWidget {
+  final FormFieldSetter<String> onSaved;
   final AppTextFormFieldType type;
-  const AppTextFormField({Key? key, required this.type}) : super(key: key);
+  const AppTextFormField({
+    Key? key,
+    required this.type,
+    required this.onSaved,
+  }) : super(key: key);
 
   @override
   _AppTextFormFieldState createState() => _AppTextFormFieldState();
@@ -15,19 +21,11 @@ class AppTextFormField extends StatefulWidget {
 class _AppTextFormFieldState extends State<AppTextFormField> {
   final _formKey = GlobalKey<FormState>();
   FormFieldValidator<String>? validator;
-  FormFieldSetter<String>? onSaved;
   TextInputType? keyboardType;
-  String? hintText;
+  late String hintText;
   IconButton? suffixIcon;
   bool showPassword = false;
   bool obscureText = false;
-
-  String username = '';
-  String mail = '';
-  String pass = '';
-  String passAgain = '';
-  String name = '';
-  String surname = '';
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +47,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
             }
           }
         };
-        onSaved = (value) {
-          if (value != null) {
-            mail = value;
-          }
-        };
+
         break;
       case AppTextFormFieldType.name:
         suffixIcon = null;
@@ -69,11 +63,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
             }
           }
         };
-        onSaved = (value) {
-          if (value != null) {
-            name = value;
-          }
-        };
+
         break;
       case AppTextFormFieldType.surname:
         suffixIcon = null;
@@ -89,11 +79,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
             }
           }
         };
-        onSaved = (value) {
-          if (value != null) {
-            surname = value;
-          }
-        };
+
         break;
       case AppTextFormFieldType.password:
         hintText = 'Password';
@@ -114,11 +100,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
             }
           }
         };
-        onSaved = (value) {
-          if (value != null) {
-            pass = value;
-          }
-        };
+
         suffixIcon = IconButton(
           onPressed: () {
             setState(() {
@@ -150,11 +132,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
             }
           }
         };
-        onSaved = (value) {
-          if (value != null) {
-            passAgain = value;
-          }
-        };
+
         suffixIcon = IconButton(
           onPressed: () {
             setState(() {
@@ -173,31 +151,9 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
       key: _formKey,
       validator: validator,
       cursorColor: Colors.grey,
-      decoration: InputDecoration(
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Colors.grey),
-        ),
-        filled: true,
-        fillColor: Colors.white,
-        hintText: hintText,
-        hintStyle: NoteTextStyle.get(
-          noteFontSize: NoteFontSize.h4,
-          noteFontWeight: NoteFontWeight.normal,
-        ),
-        suffixIcon: suffixIcon,
-        suffixIconColor: Colors.grey,
-      ),
+      decoration: ProjectInputDecoration(hintText, suffixIcon),
       keyboardType: keyboardType,
-      onSaved: onSaved,
+      onSaved: widget.onSaved,
       obscureText: obscureText,
     );
   }
