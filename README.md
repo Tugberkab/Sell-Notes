@@ -1,3 +1,3 @@
 # sell_notes
 
-To look project select "development" branch
+To look project select "develop" branch
